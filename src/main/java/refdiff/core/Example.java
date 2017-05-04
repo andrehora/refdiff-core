@@ -20,7 +20,7 @@ public class Example {
 		
 		RefDiff refDiff = new RefDiff();
 		GitService gitService = new GitServiceImpl();
-		try (Repository repository = gitService.cloneIfNotExists("projects/RefDiff", "https://github.com/square/leakcanary.git")) {
+		try (Repository repository = gitService.cloneIfNotExists("projects/RefDiff", "https://github.com/aserg-ufmg/RefDiff.git")) {
 			List<SDRefactoring> refactorings = refDiff.detectAtCommit(repository, "c56990c79da89f5da2667c738ee2426be5ec5c44");
 		    for (SDRefactoring refactoring : refactorings) {
 		    	System.out.print(refactoring.getName());
