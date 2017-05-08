@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import refdiff.core.rm2.model.refactoring.SDChangeType;
+import refdiff.core.rm2.model.refactoring.SDRefactoring;
+
 public abstract class SDEntity implements Comparable<SDEntity> {
 
 	private int id;
@@ -141,4 +144,10 @@ public abstract class SDEntity implements Comparable<SDEntity> {
 	public boolean hasSourceCodeChanged(SDEntity entity) {
 		return false;
 	}
+	
+	//todo: abstract?
+	public SDRefactoring changeRefactoringFactory(SDEntity before, SDEntity after) {
+		return new SDRefactoring();
+	}
+	
 }

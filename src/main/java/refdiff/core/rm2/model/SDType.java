@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import refdiff.core.rm2.model.refactoring.SDChangeType;
+import refdiff.core.rm2.model.refactoring.SDRefactoring;
+
 public class SDType extends SDContainerEntity {
 
 	private String simpleName;
@@ -164,5 +167,9 @@ public class SDType extends SDContainerEntity {
 			return false;
     	double sim = this.sourceCode().similarity(entity.sourceCode());
     	return sim > 0 && sim < 1.0;
+	}
+	
+	public SDRefactoring changeRefactoringFactory(SDEntity before, SDEntity after) {
+		return new SDChangeType(before, after);
 	}
 }

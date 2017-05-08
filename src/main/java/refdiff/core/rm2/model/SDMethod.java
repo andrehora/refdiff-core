@@ -3,6 +3,10 @@ package refdiff.core.rm2.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import refdiff.core.rm2.model.refactoring.SDChangeMethod;
+import refdiff.core.rm2.model.refactoring.SDChangeType;
+import refdiff.core.rm2.model.refactoring.SDRefactoring;
+
 
 public class SDMethod extends SDEntity {
 
@@ -236,5 +240,9 @@ public class SDMethod extends SDEntity {
 			return false;
     	double sim = this.sourceCode().similarity(entity.sourceCode());
     	return sim > 0 && sim < 1.0;
+	}
+    
+    public SDRefactoring changeRefactoringFactory(SDEntity before, SDEntity after) {
+		return new SDChangeMethod(before, after);
 	}
 }

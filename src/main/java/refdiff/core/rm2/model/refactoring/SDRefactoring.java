@@ -11,6 +11,10 @@ public class SDRefactoring implements Refactoring {
 	protected SDEntity mainEntity;
 	protected SDEntity entityBefore;
 	protected SDEntity entityAfter;
+	
+	public SDRefactoring() {
+		
+	}
 
 	public SDRefactoring(RefactoringType type, SDEntity mainEntity, SDEntity entityBefore, SDEntity entityAfter) {
 		this.type = type;

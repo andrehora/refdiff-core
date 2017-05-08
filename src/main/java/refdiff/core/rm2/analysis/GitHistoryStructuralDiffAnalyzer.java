@@ -111,7 +111,7 @@ public class GitHistoryStructuralDiffAnalyzer {
 	}
 	
 	protected void detectRefactorings(GitService gitService, Repository repository, final StructuralDiffHandler handler, File projectFolder, RevCommit currentCommit) throws Exception {
-	    String commitId = currentCommit.getId().getName();
+		String commitId = currentCommit.getId().getName();
 		List<String> filesBefore = new ArrayList<String>();
 		List<String> filesCurrent = new ArrayList<String>();
 		Map<String, String> renamedFilesHint = new HashMap<String, String>();
@@ -120,9 +120,9 @@ public class GitHistoryStructuralDiffAnalyzer {
 		// only ADD's or only REMOVE's there is no refactoring
 		
 		SDModelBuilder builder = new SDModelBuilder(config);
-		if (filesBefore.isEmpty() || filesCurrent.isEmpty()) {
-		    return;
-		}
+		//if (filesBefore.isEmpty() || filesCurrent.isEmpty()) {
+		//    return;
+		//}
 			// Checkout and build model for current commit
 	    File folderAfter = new File(projectFolder.getParentFile(), "v1/" + projectFolder.getName() + "-" + commitId.substring(0, 7));
 	    if (folderAfter.exists()) {

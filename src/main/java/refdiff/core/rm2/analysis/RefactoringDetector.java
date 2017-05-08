@@ -16,6 +16,8 @@ import refdiff.core.rm2.model.SDMethod;
 import refdiff.core.rm2.model.SDModel;
 import refdiff.core.rm2.model.SDType;
 import refdiff.core.rm2.model.SourceRepresentation;
+import refdiff.core.rm2.model.refactoring.SDAddMethod;
+import refdiff.core.rm2.model.refactoring.SDAddType;
 import refdiff.core.rm2.model.refactoring.SDExtractMethod;
 import refdiff.core.rm2.model.refactoring.SDExtractSupertype;
 import refdiff.core.rm2.model.refactoring.SDInlineMethod;
@@ -27,9 +29,12 @@ import refdiff.core.rm2.model.refactoring.SDPullUpAttribute;
 import refdiff.core.rm2.model.refactoring.SDPullUpMethod;
 import refdiff.core.rm2.model.refactoring.SDPushDownAttribute;
 import refdiff.core.rm2.model.refactoring.SDPushDownMethod;
+import refdiff.core.rm2.model.refactoring.SDRefactoring;
+import refdiff.core.rm2.model.refactoring.SDRemoveMethod;
+import refdiff.core.rm2.model.refactoring.SDRemoveType;
 import refdiff.core.rm2.model.refactoring.SDRenameClass;
 import refdiff.core.rm2.model.refactoring.SDRenameMethod;
-import refdiff.core.rm2.model.refactoring.SDChangeEntity;
+import refdiff.core.rm2.model.refactoring.SDChangeType;
 
 public class RefactoringDetector {
 
@@ -40,6 +45,8 @@ public class RefactoringDetector {
     }
 
     public void analyze(SDModel model) {
+    	identifyAddedEntities(model);
+    	identifyRemovedEntities(model);
     	identifyChangedEntities(model);
         identifyMatchingTypes(model);
         identifyExtractTypes(model);
@@ -47,6 +54,24 @@ public class RefactoringDetector {
         identifyExtractMethod(model);
         identifyInlineMethod(model);
         //identifyMatchingAttributes(model);
+    }
+    
+    private void identifyAddedEntities(SDModel m) {
+    	for (SDEntity addedTypes : m.after().getUnmatchedTypes()) {
+    		m.addRefactoring(new SDAddType(addedTypes));
+    	}
+    	for (SDEntity addedMethod : m.after().getUnmatchedMethods()) {
+    		m.addRefactoring(new SDAddMethod(addedMethod));
+    	}
+    }
+    
+    private void identifyRemovedEntities(SDModel m) {
+    	for (SDEntity removedTypes : m.before().getUnmatchedTypes()) {
+    		m.addRefactoring(new SDAddType(removedTypes));
+    	}
+    	for (SDEntity removedMethod : m.before().getUnmatchedMethods()) {
+    		m.addRefactoring(new SDRemoveMethod(removedMethod));
+    	}
     }
     
     private void identifyChangedEntities(SDModel m) {
@@ -57,9 +82,9 @@ public class RefactoringDetector {
 	    		if (relationship.getType() == RelationshipType.SAME) {
 		    		SDEntity before = relationship.getEntityBefore();
 		    		SDEntity after = relationship.getEntityAfter();
-		    		SDChangeEntity changedEntity = new SDChangeEntity(before, after);
 		    		if (before.hasSourceCodeChanged(after) && !changedEntities.contains(relationship)) {
 		    			changedEntities.add(relationship);
+		    			SDRefactoring changedEntity = before.changeRefactoringFactory(before, after);
 		    			m.addRefactoring(changedEntity);
 		    		}
 		    	}

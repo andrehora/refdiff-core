@@ -5,7 +5,12 @@ import java.util.regex.Pattern;
 
 public enum RefactoringType {
 	
-	CHANGE_CODE("Change Code", "", 0),
+	ADD_TYPE("Add Type", "", 0),
+	ADD_METHOD("Add Method", "", 0),
+	REMOVE_TYPE("Remove Type", "", 0),
+	REMOVE_METHOD("Remove Method", "", 0),
+	CHANGE_TYPE("Change Type", "", 0),
+	CHANGE_METHOD("Change Method", "", 0),
 	EXTRACT_OPERATION("Extract Method", "Extract Method (.+) extracted from (.+) in class (.+)", 2),
 	RENAME_CLASS("Rename Class", "Rename Class (.+) renamed to (.+)"),
 	MOVE_ATTRIBUTE("Move Attribute", "Move Attribute (.+) from class (.+) to class (.+)"),

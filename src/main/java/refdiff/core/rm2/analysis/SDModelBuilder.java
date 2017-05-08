@@ -53,7 +53,8 @@ public class SDModelBuilder {
 	        List<String> references = entry.getValue();
 	        for (String referencedKey : references) {
 	            SDEntity referenced = model.findByName(SDEntity.class, referencedKey);
-	            if (referenced != null) {
+	            if (referenced != null && !referenced.fullName().isEmpty()) {
+	            	//System.out.println(referenced.fullName().isEmpty());
 	                entity.addReference(referenced);
 	            }
 	        }
