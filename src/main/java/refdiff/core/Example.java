@@ -1,4 +1,5 @@
 package refdiff.core;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,42 +21,41 @@ import refdiff.core.util.GitServiceImpl;
 
 public class Example {
 	
-	
-	public static void detectRefactoringAt(String project, String folder, String commit) {
+	public static void detectRefactoringAt(String project, String folder, String line) {
+		
+		String commit = line.split(",")[0];
+		String date = line.split(",")[1];
+		
 		RefDiff refDiff = new RefDiff();
 		GitService gitService = new GitServiceImpl();
 		try (Repository repository = gitService.cloneIfNotExists(folder, project)) {
 			List<SDRefactoring> refactorings = refDiff.detectAtCommit(repository, commit);
 		    for (SDRefactoring refactoring : refactorings) {
 		    	System.out.print(refactoring.getName());
-		    	System.out.print(",");
+		    	System.out.print(";");
 		        System.out.print(refactoring.getEntityBefore());
-		        System.out.print(",");
+		        System.out.print(";");
 		        System.out.print(refactoring.getEntityAfter());
-		        System.out.print(",");
-		        System.out.println(commit);
+		        System.out.print(";");
+		        System.out.print(commit);
+		        System.out.print(";");
+		        System.out.println(date);
 		    }
 		}
 		catch (Exception ex) {}
 	}
 	
-	public static void detectRefactorings(String project, String folder, List<String> commits) throws Exception {
-		for (String commit : commits) {
-			detectRefactoringAt(project, folder, commit);
-		}
-	}
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
-		//PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
-		//System.setOut(out);
+		PrintStream out = new PrintStream(new FileOutputStream("model_history"));
+		System.setOut(out);
 		
-		String project = "https://github.com/square/leakcanary.git";
-		String folder = "projects/leakcanary";
-		Path path = Paths.get("commits.json");
+		String project = "https://github.com/square/okhttp.git";
+		String folder = "projects/okhttp";
+		Path path = Paths.get("commits");
 		
 		try (Stream<String> lines = Files.lines(path)) {
-            lines.forEach(commit -> detectRefactoringAt(project, folder, commit));
+            lines.forEach(line -> detectRefactoringAt(project, folder, line));
         } catch (Exception ex) {}
 	}
 }
