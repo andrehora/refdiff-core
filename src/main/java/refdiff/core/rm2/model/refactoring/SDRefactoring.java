@@ -34,12 +34,20 @@ public class SDRefactoring implements Refactoring {
 	}
 	
 	public SDEntity getEntityBefore() {
-    return entityBefore;
-  }
+		return entityBefore;
+	}
+	
+	public String getEntityNameBefore() {
+		return this.getEntityBefore().toString();
+	}
 
-  public SDEntity getEntityAfter() {
-    return entityAfter;
-  }
+	public SDEntity getEntityAfter() {
+		return entityAfter;
+	}
+	
+	public String getEntityNameAfter() {
+		return this.getEntityAfter().toString();
+	}
 
   @Override
 	public String toString() {

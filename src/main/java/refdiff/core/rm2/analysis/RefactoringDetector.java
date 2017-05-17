@@ -45,6 +45,7 @@ public class RefactoringDetector {
     }
 
     public void analyze(SDModel model) {
+    	
     	identifyAddedEntities(model);
     	identifyRemovedEntities(model);
     	identifyChangedEntities(model);
@@ -57,8 +58,8 @@ public class RefactoringDetector {
     }
     
     private void identifyAddedEntities(SDModel m) {
-    	for (SDEntity addedTypes : m.after().getUnmatchedTypes()) {
-    		m.addRefactoring(new SDAddType(addedTypes));
+    	for (SDEntity addedType : m.after().getUnmatchedTypes()) {
+    		m.addRefactoring(new SDAddType(addedType));
     	}
     	for (SDEntity addedMethod : m.after().getUnmatchedMethods()) {
     		m.addRefactoring(new SDAddMethod(addedMethod));
@@ -66,8 +67,8 @@ public class RefactoringDetector {
     }
     
     private void identifyRemovedEntities(SDModel m) {
-    	for (SDEntity removedTypes : m.before().getUnmatchedTypes()) {
-    		m.addRefactoring(new SDAddType(removedTypes));
+    	for (SDEntity removedType : m.before().getUnmatchedTypes()) {
+    		m.addRefactoring(new SDRemoveType(removedType));
     	}
     	for (SDEntity removedMethod : m.before().getUnmatchedMethods()) {
     		m.addRefactoring(new SDRemoveMethod(removedMethod));

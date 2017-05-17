@@ -33,9 +33,9 @@ public class Example {
 		    for (SDRefactoring refactoring : refactorings) {
 		    	System.out.print(refactoring.getName());
 		    	System.out.print(";");
-		        System.out.print(refactoring.getEntityBefore());
+		        System.out.print(refactoring.getEntityNameBefore());
 		        System.out.print(";");
-		        System.out.print(refactoring.getEntityAfter());
+		        System.out.print(refactoring.getEntityNameAfter());
 		        System.out.print(";");
 		        System.out.print(commit);
 		        System.out.print(";");
@@ -50,8 +50,8 @@ public class Example {
 		PrintStream out = new PrintStream(new FileOutputStream("model_history"));
 		System.setOut(out);
 		
-		String project = "https://github.com/square/okhttp.git";
-		String folder = "projects/okhttp";
+		String project = "https://github.com/ReactiveX/RxJava.git";
+		String folder = "projects/RxJava";
 		Path path = Paths.get("commits");
 		
 		try (Stream<String> lines = Files.lines(path)) {

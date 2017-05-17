@@ -25,4 +25,8 @@ public class SDRemoveType extends SDRefactoring {
         sb.append(entityAfter.fullName());
         return sb.toString();
     }
+    
+    public String getEntityNameAfter() {
+		return "TYPE_REMOVAL";
+	}
 }

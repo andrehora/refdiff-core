@@ -25,4 +25,8 @@ public class SDRemoveMethod extends SDRefactoring {
         sb.append(entityAfter.fullName());
         return sb.toString();
     }
+    
+    public String getEntityNameAfter() {
+		return "METHOD_REMOVAL";
+	}
 }
