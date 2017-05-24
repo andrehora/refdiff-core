@@ -47,12 +47,14 @@ public class Example {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		PrintStream out = new PrintStream(new FileOutputStream("model_history"));
+		String systemName = "leakcanary";
+		String project = "https://github.com/square/leakcanary.git";
+		String folder = "projects/"+systemName;
+		
+		PrintStream out = new PrintStream(new FileOutputStream("model_"+systemName));
 		System.setOut(out);
 		
-		String project = "https://github.com/ReactiveX/RxJava.git";
-		String folder = "projects/RxJava";
-		Path path = Paths.get("commits");
+		Path path = Paths.get("commits_"+systemName);
 		
 		try (Stream<String> lines = Files.lines(path)) {
             lines.forEach(line -> detectRefactoringAt(project, folder, line));

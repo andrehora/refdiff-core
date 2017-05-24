@@ -47,7 +47,7 @@ public class RefactoringDetector {
     public void analyze(SDModel model) {
     	
     	identifyAddedEntities(model);
-    	identifyRemovedEntities(model);
+    	//identifyRemovedEntities(model);
     	identifyChangedEntities(model);
         identifyMatchingTypes(model);
         identifyExtractTypes(model);
