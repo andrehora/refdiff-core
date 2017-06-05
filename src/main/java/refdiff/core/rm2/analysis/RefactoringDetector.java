@@ -46,14 +46,14 @@ public class RefactoringDetector {
 
     public void analyze(SDModel model) {
     	
-    	identifyAddedEntities(model);
+    	//identifyAddedEntities(model);
     	//identifyRemovedEntities(model);
-    	identifyChangedEntities(model);
         identifyMatchingTypes(model);
         identifyExtractTypes(model);
         identifyMatchingMethods(model);
         identifyExtractMethod(model);
         identifyInlineMethod(model);
+        identifySameEntities(model);
         //identifyMatchingAttributes(model);
     }
     
@@ -75,7 +75,7 @@ public class RefactoringDetector {
     	}
     }
     
-    private void identifyChangedEntities(SDModel m) {
+    private void identifySameEntities(SDModel m) {
     	List<Relationship> changedEntities = new ArrayList<Relationship>();
 	    for (LinkedList<Relationship> lr : m.relationships) {
 	    	if (lr.size() > 0){

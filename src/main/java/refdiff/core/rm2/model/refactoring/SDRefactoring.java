@@ -11,6 +11,7 @@ public class SDRefactoring implements Refactoring {
 	protected SDEntity mainEntity;
 	protected SDEntity entityBefore;
 	protected SDEntity entityAfter;
+	protected boolean changedCode = false;
 	
 	public SDRefactoring() {
 		
@@ -21,6 +22,7 @@ public class SDRefactoring implements Refactoring {
 		this.mainEntity = mainEntity;
 		this.entityBefore = entityBefore;
 		this.entityAfter = entityAfter;
+		this.changedCode = entityBefore.hasSourceCodeChanged(entityAfter);
 	}
 
 	@Override
@@ -47,6 +49,10 @@ public class SDRefactoring implements Refactoring {
 	
 	public String getEntityNameAfter() {
 		return this.getEntityAfter().toString();
+	}
+	
+	public boolean getChangedCode() {
+		return this.changedCode;
 	}
 
   @Override

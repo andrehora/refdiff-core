@@ -13,6 +13,7 @@ public class SDChangeMethod extends SDRefactoring {
         super(RefactoringType.CHANGE_METHOD, entityBefore, entityBefore, entityAfter);
         this.entityBefore = entityBefore;
         this.entityAfter = entityAfter;
+        //this.changedCode = true;
     }
     
     @Override

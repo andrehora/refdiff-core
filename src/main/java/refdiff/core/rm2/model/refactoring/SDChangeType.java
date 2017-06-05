@@ -13,6 +13,7 @@ public class SDChangeType extends SDRefactoring {
         super(RefactoringType.CHANGE_TYPE, entityBefore, entityBefore, entityAfter);
         this.entityBefore = entityBefore;
         this.entityAfter = entityAfter;
+        //this.changedCode = true;
     }
     
     @Override

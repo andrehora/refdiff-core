@@ -33,6 +33,8 @@ public class Example {
 		    for (SDRefactoring refactoring : refactorings) {
 		    	System.out.print(refactoring.getName());
 		    	System.out.print(";");
+		    	System.out.print(refactoring.getChangedCode());
+		    	System.out.print(";");
 		        System.out.print(refactoring.getEntityNameBefore());
 		        System.out.print(";");
 		        System.out.print(refactoring.getEntityNameAfter());
@@ -47,9 +49,9 @@ public class Example {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		String systemName = "leakcanary";
-		String project = "https://github.com/square/leakcanary.git";
-		String folder = "projects/"+systemName;
+		String systemName = "picasso";
+		String project = "https://github.com/square/retrofit.git";
+		String systemFolder = "projects/"+systemName;
 		
 		PrintStream out = new PrintStream(new FileOutputStream("model_"+systemName));
 		System.setOut(out);
@@ -57,7 +59,7 @@ public class Example {
 		Path path = Paths.get("commits_"+systemName);
 		
 		try (Stream<String> lines = Files.lines(path)) {
-            lines.forEach(line -> detectRefactoringAt(project, folder, line));
+            lines.forEach(line -> detectRefactoringAt(project, systemFolder, line));
         } catch (Exception ex) {}
 	}
 }
