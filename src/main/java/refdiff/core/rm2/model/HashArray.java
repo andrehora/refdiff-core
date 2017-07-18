@@ -93,7 +93,7 @@ public class HashArray {
         return result;
     }
     
-    protected long get(int i) {
+    public long get(int i) {
         return this.hashes[i];
     }
 

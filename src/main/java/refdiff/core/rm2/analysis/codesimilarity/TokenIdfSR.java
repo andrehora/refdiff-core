@@ -1,6 +1,9 @@
 package refdiff.core.rm2.analysis.codesimilarity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import refdiff.core.rm2.model.Multiset;
@@ -29,6 +32,16 @@ class TokenIdfSR implements SourceRepresentation {
     public Set<String> getTokenSet() {
         return tokens.asSet();
     }
+    
+    public List<String> getTypeReferences() {
+    	ArrayList<String> typeReferences = new ArrayList<String>();
+    	for (String token : this.getTokenSet()) {
+    		if (token.length() >= 2 && Character.isUpperCase(token.charAt(0)) && Character.isLowerCase(token.charAt(1))) {
+    			typeReferences.add(token);
+    		}
+		}
+    	return typeReferences;
+    }
 
     @Override
     public TokenIdfSR combine(SourceRepresentation sr) {
@@ -47,7 +60,7 @@ class TokenIdfSR implements SourceRepresentation {
     public double partialSimilarity(SourceRepresentation other) {
         return jaccardSimilarity(((TokenIdfSR) other).tokens, true);
     }
-
+    
     public double jaccardSimilarity(Multiset<String> tokens2, boolean partial) {
         if (tokens.isEmpty() || tokens2.isEmpty()) {
             return 0.0;
@@ -73,5 +86,5 @@ class TokenIdfSR implements SourceRepresentation {
         }
         return idfu / idfd;
     }
-
+    
 }

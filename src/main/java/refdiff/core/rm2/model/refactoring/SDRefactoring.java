@@ -1,7 +1,11 @@
 package refdiff.core.rm2.model.refactoring;
 
-import refdiff.core.rm2.model.SDEntity;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import refdiff.core.rm2.model.SDEntity;
 import refdiff.core.api.Refactoring;
 import refdiff.core.api.RefactoringType;
 
@@ -23,6 +27,8 @@ public class SDRefactoring implements Refactoring {
 		this.entityBefore = entityBefore;
 		this.entityAfter = entityAfter;
 		this.changedCode = entityBefore.hasSourceCodeChanged(entityAfter);
+		//System.out.println(entityBefore.getTypeReferences());
+		//System.out.println(entityAfter.getTypeReferences());
 	}
 
 	@Override
@@ -53,6 +59,26 @@ public class SDRefactoring implements Refactoring {
 	
 	public boolean getChangedCode() {
 		return this.changedCode;
+	}
+	
+	public List<String> getTypeReferencesBefore() {
+		return entityBefore.getTypeReferences();
+	}
+	
+	public List<String> getTypeReferencesAfter() {
+		return entityAfter.getTypeReferences();
+	}
+	
+	public List<String> getRemovedTypes() {
+		List<String> toReturn = new ArrayList<String>(this.getTypeReferencesBefore());
+		toReturn.removeAll(this.getTypeReferencesAfter());
+		return toReturn;
+	}
+	
+	public List<String> getAddedTypes() {
+		List<String> toReturn = new ArrayList<String>(this.getTypeReferencesAfter());
+		toReturn.removeAll(this.getTypeReferencesBefore());
+		return toReturn;
 	}
 
   @Override

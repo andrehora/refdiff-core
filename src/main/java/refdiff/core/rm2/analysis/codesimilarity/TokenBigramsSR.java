@@ -1,5 +1,6 @@
 package refdiff.core.rm2.analysis.codesimilarity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -75,5 +76,9 @@ class TokenBigramsSR extends HashArray implements SourceRepresentation {
     @Override
     public double partialSimilarity(SourceRepresentation other) {
         return partialSimilarity((HashArray) other);
+    }
+    
+    public List<String> getTypeReferences() {
+    	return new ArrayList();
     }
 }

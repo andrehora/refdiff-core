@@ -31,35 +31,47 @@ public class Example {
 		try (Repository repository = gitService.cloneIfNotExists(folder, project)) {
 			List<SDRefactoring> refactorings = refDiff.detectAtCommit(repository, commit);
 		    for (SDRefactoring refactoring : refactorings) {
-		    	System.out.print(refactoring.getName());
-		    	System.out.print(";");
-		    	System.out.print(refactoring.getChangedCode());
-		    	System.out.print(";");
-		        System.out.print(refactoring.getEntityNameBefore());
-		        System.out.print(";");
-		        System.out.print(refactoring.getEntityNameAfter());
-		        System.out.print(";");
-		        System.out.print(commit);
-		        System.out.print(";");
-		        System.out.println(date);
+		    	if ((refactoring.getName().equals("SameMethod") || refactoring.getName().equals("RenameMethod") || refactoring.getName().equals("MoveMethod")) && 
+		    			refactoring.getRemovedTypes().size() == 1 && refactoring.getAddedTypes().size() == 1) {
+			    	System.out.print(refactoring.getName());
+//			    	System.out.print(";");
+//			    	System.out.print(refactoring.getChangedCode());
+//			    	System.out.print(";");
+//			        System.out.print(refactoring.getEntityNameBefore());
+//			        System.out.print(";");
+//			        System.out.print(refactoring.getEntityNameAfter());
+			        System.out.print(";");
+			        System.out.print(commit);
+//			        System.out.print(";");
+//			        System.out.println(date);
+			        System.out.print(";");
+			        System.out.print(refactoring.getRemovedTypes().get(0));
+			        System.out.print(";");
+			        System.out.println(refactoring.getAddedTypes().get(0));
+		    	}
 		    }
 		}
-		catch (Exception ex) {}
+		catch (Exception ex) {
+			//System.out.println("Error:" + ex.getMessage());
+		}
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		String systemName = "picasso";
-		String project = "https://github.com/square/retrofit.git";
+		String systemName = "che";
+		String project = "";
 		String systemFolder = "projects/"+systemName;
 		
-		PrintStream out = new PrintStream(new FileOutputStream("model_"+systemName));
+		PrintStream out = new PrintStream(new FileOutputStream("apimining_"+systemName));
 		System.setOut(out);
 		
 		Path path = Paths.get("commits_"+systemName);
+		//Path path = Paths.get("commits");
 		
 		try (Stream<String> lines = Files.lines(path)) {
             lines.forEach(line -> detectRefactoringAt(project, systemFolder, line));
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        	//System.out.println("Error:" + ex.getMessage());
+        }
 	}
 }

@@ -145,6 +145,10 @@ public abstract class SDEntity implements Comparable<SDEntity> {
 		return false;
 	}
 	
+	public List<String> getTypeReferences() {
+		return this.sourceCode().getTypeReferences();
+	}
+	
 	//todo: abstract?
 	public SDRefactoring changeRefactoringFactory(SDEntity before, SDEntity after) {
 		return new SDRefactoring();

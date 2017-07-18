@@ -1,6 +1,7 @@
 package refdiff.core.rm2.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import refdiff.core.rm2.model.refactoring.SDChangeMethod;
@@ -236,6 +237,7 @@ public class SDMethod extends SDEntity {
     }
     
     public boolean hasSourceCodeChanged(SDEntity entity) {
+    	
     	if (this.sourceCode() == null)
 			return false;
     	double sim = this.sourceCode().similarity(entity.sourceCode());

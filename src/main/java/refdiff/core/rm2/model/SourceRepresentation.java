@@ -1,5 +1,7 @@
 package refdiff.core.rm2.model;
 
+import java.util.List;
+
 public interface SourceRepresentation {
 
     SourceRepresentation combine(SourceRepresentation other);
@@ -9,5 +11,7 @@ public interface SourceRepresentation {
     double similarity(SourceRepresentation other);
 
     double partialSimilarity(SourceRepresentation other);
+    
+    public List<String> getTypeReferences();
 
 }

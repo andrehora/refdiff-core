@@ -33,7 +33,7 @@ public abstract class DependenciesAstVisitor extends ASTVisitor {
 	public DependenciesAstVisitor(boolean onlyFromSource) {
         this.onlyFromSource = onlyFromSource;
     }
-
+	
     @Override
 	public final boolean visit(MethodInvocation node) {
 		IMethodBinding methodBinding = node.resolveMethodBinding();

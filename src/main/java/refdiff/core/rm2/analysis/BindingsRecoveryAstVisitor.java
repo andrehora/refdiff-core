@@ -150,6 +150,7 @@ public class BindingsRecoveryAstVisitor extends ASTVisitor {
             @Override
             protected void onTypeAccess(ASTNode node, ITypeBinding binding) {
                 String typeKey = AstUtils.getKeyFromTypeBinding(binding);
+                //System.out.println(typeKey);
                 references.add(typeKey);
             }
         });
@@ -206,11 +207,13 @@ public class BindingsRecoveryAstVisitor extends ASTVisitor {
         } else {
             //method.setSourceCode(srbForMethods.buildSourceRepresentation(this.fileContent, body.getStartPosition() + 1, body.getLength() - 2));
             method.setSourceCode(srbForMethods.buildSourceRepresentation(method, this.fileContent, body));
+            //System.out.println(body.toString());
             final List<String> references = new ArrayList<String>();
             body.accept(new DependenciesAstVisitor(true) {
                 @Override
                 protected void onMethodAccess(ASTNode node, IMethodBinding binding) {
                     String methodKey = AstUtils.getKeyFromMethodBinding(binding);
+                    //System.out.println(methodKey);
                     references.add(methodKey);
                 }
 
