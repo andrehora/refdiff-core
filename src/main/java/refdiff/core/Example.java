@@ -58,7 +58,7 @@ public class Example {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		String systemName = "che";
+		String systemName = "clojure";
 		String project = "";
 		String systemFolder = "projects/"+systemName;
 		
