@@ -19,7 +19,7 @@ import refdiff.core.rm2.model.refactoring.SDRefactoring;
 import refdiff.core.util.GitServiceImpl;
 
 
-public class Example {
+public class RefDiffRunner {
 	
 	public static void detectRefactoringAt(String project, String folder, String line) {
 		
@@ -79,14 +79,15 @@ public class Example {
 		String project = "";
 		String systemFolder = "projects/"+systemName;
 		
-		PrintStream out = new PrintStream(new FileOutputStream("apimining2_"+systemName));
+		PrintStream out = new PrintStream(new FileOutputStream("model_"+systemName));
+//		PrintStream out = new PrintStream(new FileOutputStream("apimining2_"+systemName));
 		System.setOut(out);
 		
 		Path path = Paths.get("commits_"+systemName);
 		
 		try (Stream<String> lines = Files.lines(path)) {
-            //lines.forEach(line -> detectRefactoringAt(project, systemFolder, line));
-            lines.forEach(line -> apiMiningTransactionsAt(project, systemFolder, line));
+            lines.forEach(line -> detectRefactoringAt(project, systemFolder, line));
+//            lines.forEach(line -> apiMiningTransactionsAt(project, systemFolder, line));
         } catch (Exception ex) {
         	//System.out.println("Error:" + ex.getMessage());
         }
