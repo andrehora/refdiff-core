@@ -14,6 +14,5 @@ clone_project() {
 }
 
 cd projects
-clone_project "https://github.com/andrehora/method-blame"
-clone_project "https://github.com/iluwatar/java-design-patterns"
-clone_project "https://github.com/bumptech/glide.git"
+
+clone_project "https://github.com/aserg-ufmg/RefDiff"
