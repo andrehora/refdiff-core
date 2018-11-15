@@ -26,7 +26,7 @@ public class SDAddMethod extends SDRefactoring {
         return sb.toString();
     }
     
-    public String getEntityNameBefore() {
-		return "METHOD_ADDITION";
-	}
+//    public String getEntityNameBefore() {
+//		return "METHOD_ADDITION";
+//	}
 }

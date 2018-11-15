@@ -46,14 +46,15 @@ public class RefactoringDetector {
 
     public void analyze(SDModel model) {
     	
-    	//identifyAddedEntities(model);
+    	identifyAddedEntities(model);
     	//identifyRemovedEntities(model);
         identifyMatchingTypes(model);
         identifyExtractTypes(model);
+        //order should be: extract -> same -> inline
         identifyMatchingMethods(model);
         identifyExtractMethod(model);
-        identifyInlineMethod(model);
         identifySameEntities(model);
+        identifyInlineMethod(model);
         //identifyMatchingAttributes(model);
     }
     
@@ -159,6 +160,7 @@ public class RefactoringDetector {
 
                 protected void onMatch(SDModel m, SDMethod methodBefore, SDMethod methodAfter) {
                     // change signature
+                	m.addRefactoring(new SDRenameMethod(methodBefore, methodAfter));
                 }
             })
             .addCriterion(new Criterion<SDMethod>(RelationshipType.RENAME_METHOD, config.getThreshold(RelationshipType.RENAME_METHOD)) {

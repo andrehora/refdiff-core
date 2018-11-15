@@ -52,7 +52,7 @@ public class RefDiffRunner {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		String projectName = "RefDiff";
+		String projectName = "LollipopShowcase";
 		
 		String baseFolder = "projects";
 		String projectFolder = baseFolder + "/" + projectName;

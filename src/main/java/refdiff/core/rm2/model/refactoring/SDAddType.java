@@ -26,7 +26,7 @@ public class SDAddType extends SDRefactoring {
         return sb.toString();
     }
     
-    public String getEntityNameBefore() {
-		return "TYPE_ADDITION";
-	}
+//    public String getEntityNameBefore() {
+//		return "TYPE_ADDITION";
+//	}
 }

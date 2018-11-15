@@ -4,6 +4,7 @@ clone_project() {
 	
 	url=$1
 	project_name=$(echo $url | awk -F '/' '{print $NF}')
+	rm -rf $project_name
 	
 	echo "Cloning project: "$project_name
 	
@@ -15,4 +16,4 @@ clone_project() {
 
 cd projects
 
-clone_project "https://github.com/aserg-ufmg/RefDiff"
+clone_project "https://github.com/mikepenz/LollipopShowcase"
