@@ -13,5 +13,9 @@ public interface SourceRepresentation {
     double partialSimilarity(SourceRepresentation other);
     
     public List<String> getTypeReferences();
+    
+    public int getNumberOfTokens();
+    
+    public int getNumberOfStatements();
 
 }

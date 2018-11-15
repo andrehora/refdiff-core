@@ -9,6 +9,8 @@ import refdiff.core.rm2.model.SourceRepresentation;
 public interface SourceRepresentationBuilder {
 
     SourceRepresentation buildSourceRepresentation(SDEntity entity, char[] charArray, ASTNode astNode);
+    
+    SourceRepresentation buildSourceRepresentation(SDEntity entity, char[] charArray, ASTNode astNode, int numberOfStatements);
 
     SourceRepresentation buildPartialSourceRepresentation(char[] charArray, ASTNode astNode);
 

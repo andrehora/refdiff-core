@@ -43,7 +43,19 @@ public class RefDiffRunner {
 				out.print(";");
 				out.print(date);
 				out.print(";");
-				out.println(author);
+				out.print(author);
+				out.print(";");
+				out.print(refactoring.getNumberOfStatementsBefore());
+				out.print(";");
+				out.print(refactoring.getNumberOfTokensAfter());
+				out.print(";");
+				out.print(refactoring.getNumberOfTokensBefore());
+				out.print(";");
+				out.print(refactoring.getNumberOfTokensAfter());
+				out.print(";");
+				out.print(refactoring.getRemovedTypes());
+				out.print(";");
+				out.println(refactoring.getAddedTypes());
 			}
 		} catch (Exception ex) {
 			// System.out.println("Error:" + ex.getMessage());

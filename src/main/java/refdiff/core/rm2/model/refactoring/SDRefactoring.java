@@ -69,6 +69,22 @@ public class SDRefactoring implements Refactoring {
 		return entityAfter.getTypeReferences();
 	}
 	
+	public int getNumberOfStatementsBefore() {
+		return entityBefore.getNumberOfStatements();
+	}
+	
+	public int getNumberOfStatementsAfter() {
+		return entityAfter.getNumberOfStatements();
+	}
+	
+	public int getNumberOfTokensBefore() {
+		return entityBefore.getNumberOfTokens();
+	}
+	
+	public int getNumberOfTokensAfter() {
+		return entityAfter.getNumberOfTokens();
+	}
+	
 	public List<String> getRemovedTypes() {
 		List<String> toReturn = new ArrayList<String>(this.getTypeReferencesBefore());
 		toReturn.removeAll(this.getTypeReferencesAfter());

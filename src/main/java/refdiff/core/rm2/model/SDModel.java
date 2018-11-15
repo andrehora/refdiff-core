@@ -163,7 +163,7 @@ public class SDModel {
 		}
 
 		public SDMethod createMethod(String methodSignature, SDContainerEntity container, boolean isConstructor) {
-		  EntityKey key = new EntityKey(container.key() + "#" + methodSignature);
+			EntityKey key = new EntityKey(container.key() + "#" + methodSignature);
 			SDMethod sdMethod = new SDMethod(this, getId(), methodSignature, container, isConstructor);
 			putAtMap(key, sdMethod);
 			if (!sdMethod.isAnonymous()) {

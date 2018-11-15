@@ -37,6 +37,11 @@ class TokenBigramsSRBuilder implements SourceRepresentationBuilder {
     public SourceRepresentation buildSourceRepresentation(SDEntity entity, char[] charArray, ASTNode astNode) {
         return buildSourceRepresentation(charArray, astNode.getStartPosition(), astNode.getLength());
     }
+    
+    @Override
+    public SourceRepresentation buildSourceRepresentation(SDEntity entity, char[] charArray, ASTNode astNode, int numberOfStatements) {
+        return buildSourceRepresentation(charArray, astNode.getStartPosition(), astNode.getLength());
+    }
 
     @Override
     public SourceRepresentation buildSourceRepresentation(SDEntity entity, List<SourceRepresentation> parts) {
@@ -52,7 +57,7 @@ class TokenBigramsSRBuilder implements SourceRepresentationBuilder {
         List<Integer> lines = computeHashes(charArray, start, length, tokenType, debug);
         return new TokenBigramsSR(computeBigrams(lines), debug);
     }
-
+    
     @Override
     public TokenBigramsSR buildEmptySourceRepresentation() {
         return new TokenBigramsSR(new long[0]);

@@ -25,17 +25,6 @@ class TokenIdfSRBuilder implements SourceRepresentationBuilder {
     
     private static final int TOKENS = 0;
     private static final int LINES = 1;
-
-//    private void countDf(Map<Integer, String> debug) {
-//        dc++;
-//        for (String token : debug.values()) {
-//            if (df.containsKey(token)) {
-//                df.put(token, df.get(token) + 1);
-//            } else {
-//                df.put(token, 1);
-//            }
-//        }
-//    }
     
     private void countDf(Collection<String> debug) {
         dc++;
@@ -74,6 +63,11 @@ class TokenIdfSRBuilder implements SourceRepresentationBuilder {
     public SourceRepresentation buildSourceRepresentation(SDEntity entity, char[] charArray, ASTNode astNode) {
         return getTokenBasedSourceRepresentation(charArray, astNode.getStartPosition(), astNode.getLength(), true);
     }
+    
+    @Override
+    public SourceRepresentation buildSourceRepresentation(SDEntity entity, char[] charArray, ASTNode astNode, int numberOfStatements) {
+        return getTokenBasedSourceRepresentation(charArray, astNode.getStartPosition(), astNode.getLength(), true, numberOfStatements);
+    }
 
     @Override
     public SourceRepresentation buildSourceRepresentation(SDEntity entity, List<SourceRepresentation> parts) {
@@ -91,12 +85,16 @@ class TokenIdfSRBuilder implements SourceRepresentationBuilder {
     }
 
     private TokenIdfSR getTokenBasedSourceRepresentation(char[] charArray, int start, int length, boolean count) {
+        return getTokenBasedSourceRepresentation(charArray, start, length, count, 0);
+    }
+    
+    private TokenIdfSR getTokenBasedSourceRepresentation(char[] charArray, int start, int length, boolean count, int numberOfStatements) {
         List<String> debug = new ArrayList<String>();
         computeHashes(charArray, start, length, TOKENS, debug);
         if (count) countDf(debug);
         Multiset<String> multiset = new Multiset<String>();
         multiset.addAll(debug);
-        return new TokenIdfSR(multiset, this);
+        return new TokenIdfSR(multiset, this, numberOfStatements);
     }
 
     private List<Integer> computeHashes(char[] charArray, int start, int length, int granularity, List<String> debug) {

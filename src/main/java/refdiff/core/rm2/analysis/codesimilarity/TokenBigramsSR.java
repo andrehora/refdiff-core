@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import refdiff.core.rm2.model.HashArray;
+import refdiff.core.rm2.model.Multiset;
 import refdiff.core.rm2.model.SourceRepresentation;
 
 class TokenBigramsSR extends HashArray implements SourceRepresentation {
@@ -81,4 +82,12 @@ class TokenBigramsSR extends HashArray implements SourceRepresentation {
     public List<String> getTypeReferences() {
     	return new ArrayList();
     }
+    
+    public int getNumberOfTokens() {
+    	return 0;
+    }
+
+	public int getNumberOfStatements() {
+		return 0;
+	}
 }

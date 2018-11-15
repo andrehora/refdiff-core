@@ -13,7 +13,14 @@ class TokenIdfSR implements SourceRepresentation {
 
     private final Multiset<String> tokens;
     private final TokenIdfSRBuilder builder;
+    private int numberOfStatements = 0;
 
+    public TokenIdfSR(Multiset<String> tokens, TokenIdfSRBuilder builder, int numberOfStatements) {
+        this.tokens = tokens;
+        this.builder = builder;
+        this.numberOfStatements = numberOfStatements;
+    }
+    
     public TokenIdfSR(Multiset<String> tokens, TokenIdfSRBuilder builder) {
         this.tokens = tokens;
         this.builder = builder;
@@ -87,4 +94,11 @@ class TokenIdfSR implements SourceRepresentation {
         return idfu / idfd;
     }
     
+    public int getNumberOfTokens() {
+    	return tokens.size();
+    }
+
+	public int getNumberOfStatements() {
+		return numberOfStatements;
+	}
 }

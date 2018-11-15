@@ -205,9 +205,9 @@ public class BindingsRecoveryAstVisitor extends ASTVisitor {
             method.setSourceCode(srbForMethods.buildEmptySourceRepresentation());
             method.setAbstract(true);
         } else {
-            //method.setSourceCode(srbForMethods.buildSourceRepresentation(this.fileContent, body.getStartPosition() + 1, body.getLength() - 2));
-            method.setSourceCode(srbForMethods.buildSourceRepresentation(method, this.fileContent, body));
-            //System.out.println(body.toString());
+//            method.setSourceCode(srbForMethods.buildSourceRepresentation(this.fileContent, body.getStartPosition() + 1, body.getLength() - 2));
+            int numberOfStatements = methodDeclaration.getBody().statements().size();
+        	method.setSourceCode(srbForMethods.buildSourceRepresentation(method, this.fileContent, body, numberOfStatements));
             final List<String> references = new ArrayList<String>();
             body.accept(new DependenciesAstVisitor(true) {
                 @Override
