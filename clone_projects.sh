@@ -2,18 +2,26 @@
 
 clone_project() {
 	
-	url=$1
-	project_name=$(echo $url | awk -F '/' '{print $NF}')
-	rm -rf $project_name
+	project_url=$1
+	project_name=$2
+	
+	folder="projects/"
+	project_folder=$folder$project_name
+	
+	rm -rf $project_folder
 	
 	echo "Cloning project: "$project_name
 	
-	git clone $url
-	cd $project_name
+	git clone $project_url $project_folder
+	cd $project_folder
 	git log --first-parent --reverse --pretty=format:'%H','%ad','%an' | perl -pe 'END{print "\n"}' > "../commits_"$project_name
-	cd ..
+	cd ../..
 }
 
-cd projects
+while read project_url; do
 
-clone_project "https://github.com/mikepenz/LollipopShowcase"
+	project_name=$(echo $project_url | awk -F '/' '{print $NF}')
+	
+	clone_project $project_url $project_name
+ 
+done < project_urls.txt
