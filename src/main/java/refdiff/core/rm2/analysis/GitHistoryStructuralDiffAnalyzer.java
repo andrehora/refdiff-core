@@ -99,10 +99,12 @@ public class GitHistoryStructuralDiffAnalyzer {
 		//RevWalk walk = new RevWalk(repository);
 		try (RevWalk walk = new RevWalk(repository)) {
 			RevCommit commit = walk.parseCommit(repository.resolve(commitId));
-			if (commit.getParentCount() == 0)
-				return;
-			RevCommit revCommit = commit.getParent(0);
-			walk.parseCommit(revCommit);
+//			if (commit.getParentCount() == 0)
+//				return;
+			if (commit.getParentCount() > 0) {
+				RevCommit revCommit = commit.getParent(0);
+				walk.parseCommit(revCommit);
+			}
 			this.detectRefactorings(gitService, repository, handler, projectFolder, commit);
 		} catch (Exception e) {
 		    logger.warn(String.format("Ignored revision %s due to error", commitId), e);
@@ -123,7 +125,8 @@ public class GitHistoryStructuralDiffAnalyzer {
 		//if (filesBefore.isEmpty() || filesCurrent.isEmpty()) {
 		//    return;
 		//}
-			// Checkout and build model for current commit
+		
+		// Checkout and build model for current commit
 	    File folderAfter = new File(projectFolder.getParentFile(), "v1/" + projectFolder.getName() + "-" + commitId.substring(0, 7));
 	    if (folderAfter.exists()) {
 	        logger.info(String.format("Analyzing code after (%s) ...", commitId));
@@ -133,19 +136,21 @@ public class GitHistoryStructuralDiffAnalyzer {
 	        logger.info(String.format("Analyzing code after (%s) ...", commitId));
 	        builder.analyzeAfter(projectFolder, filesCurrent);
 	    }
-	
-	    String parentCommit = currentCommit.getParent(0).getName();
+	    
+	    // Checkout and build model for parent commit
+	    String parentCommit = "first_commit";
+	    if (currentCommit.getParentCount() > 0)
+	    	parentCommit = currentCommit.getParent(0).getName();
 		File folderBefore = new File(projectFolder.getParentFile(), "v0/" + projectFolder.getName() + "-" + commitId.substring(0, 7));
 		if (folderBefore.exists()) {
 		    logger.info(String.format("Analyzing code before (%s) ...", parentCommit));
             builder.analyzeBefore(projectFolder, filesBefore);
 		} else {
-		    // Checkout and build model for parent commit
-		    gitService.checkout(repository, parentCommit);
+			if (currentCommit.getParentCount() > 0)
+				gitService.checkout(repository, parentCommit);
 		    logger.info(String.format("Analyzing code before (%s) ...", parentCommit));
 		    builder.analyzeBefore(projectFolder, filesBefore);
 		}
-//		}
 		final SDModel model = builder.buildModel();
 		handler.handle(currentCommit, model);
 	}

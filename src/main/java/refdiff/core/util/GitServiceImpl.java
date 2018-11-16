@@ -233,15 +233,23 @@ public class GitServiceImpl implements GitService {
 	
 	@Override
 	public void fileTreeDiff(Repository repository, RevCommit current, List<String> javaFilesBefore, List<String> javaFilesCurrent, Map<String, String> renamedFilesHint, boolean detectRenames) throws Exception {
-        ObjectId oldHead = current.getParent(0).getTree();
-        ObjectId head = current.getTree();
-
-        // prepare the two iterators to compute the diff between
+        
+		
+		// prepare the two iterators to compute the diff between
 		ObjectReader reader = repository.newObjectReader();
 		CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
-		oldTreeIter.reset(reader, oldHead);
 		CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+		
+		
+		ObjectId oldHead;
+		if (current.getParentCount() > 0) {
+			oldHead = current.getParent(0).getTree();
+			oldTreeIter.reset(reader, oldHead);
+		}
+		
+        ObjectId head = current.getTree();
 		newTreeIter.reset(reader, head);
+		
 		// finally get the list of changed files
 		try (Git git = new Git(repository)) {
 		    List<DiffEntry> diffs = git.diff()

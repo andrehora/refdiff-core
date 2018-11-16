@@ -47,7 +47,7 @@ public class RefDiffRunner {
 				out.print(";");
 				out.print(refactoring.getNumberOfStatementsBefore());
 				out.print(";");
-				out.print(refactoring.getNumberOfTokensAfter());
+				out.print(refactoring.getNumberOfStatementsAfter());
 				out.print(";");
 				out.print(refactoring.getNumberOfTokensBefore());
 				out.print(";");
