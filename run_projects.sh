@@ -30,4 +30,4 @@ while read project_url; do
 	echo "Removing project: "$project_name
 	rm -rf $project_folder
  
-done < project_urls.txt
+done < project_urls2.txt
