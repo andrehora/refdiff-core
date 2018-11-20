@@ -24,6 +24,7 @@ public class RefDiffRunner {
 		String commit = data.split(",")[0];
 		String date = data.split(",")[1];
 		String author = data.split(",")[2];
+		String email = data.split(",")[3];
 
 		RefDiff refDiff = new RefDiff();
 		GitService gitService = new GitServiceImpl();
@@ -44,6 +45,8 @@ public class RefDiffRunner {
 				out.print(date);
 				out.print(";");
 				out.print(author);
+				out.print(";");
+				out.print(email);
 				out.print(";");
 				out.print(refactoring.getNumberOfStatementsBefore());
 				out.print(";");
