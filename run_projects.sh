@@ -20,6 +20,7 @@ while read project_url; do
 	project_name=$(echo $project_url | awk -F '/' '{print $NF}')
 	project_folder=$folder$project_name
 	
+	echo "======================================="
 	echo "Cloning project: "$project_name
 	clone_project $project_url $project_name $project_folder
 	
