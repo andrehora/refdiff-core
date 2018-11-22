@@ -49,7 +49,7 @@ https://github.com/wasabeef/recyclerview-animators
 https://github.com/brettwooldridge/HikariCP
 https://github.com/prestodb/presto
 https://github.com/permissions-dispatcher/PermissionsDispatcher
-https://github.com/https://github.com/zhihu/Matisse
+https://github.com/zhihu/Matisse
 https://github.com/LMAX-Exchange/disruptor
 https://github.com/ksoichiro/Android-ObservableScrollView
 https://github.com/wix/react-native-navigation
